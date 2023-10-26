@@ -4,8 +4,10 @@ import com.example.funko.models.Funko;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class FunkoRepository {
@@ -15,65 +17,62 @@ public class FunkoRepository {
         return funkos;
     }
 
-    public Funko getFunkoById(Long id) {
+    public Optional<Funko> getFunkoById(Long id) {
         return funkos.stream()
                 .filter(funko -> funko.getId().equals(id))
-                .findFirst()
-                .orElse(null);
+                .findFirst();
     }
 
-    public Funko createFunko(Funko funko) {
+    public Optional<Funko> createFunko(Funko funko) {
         funko.setId((long) (funkos.size() + 1)); // Asigna un ID único
-        funko.setFechaCreacion(LocalDate.now());
-        funko.setFechaActualizacion(LocalDate.now());
+        funko.setFechaCreacion(LocalDateTime.now());
+        funko.setFechaActualizacion(LocalDateTime.now());
         funkos.add(funko);
-        return funko;
+        return Optional.of(funko);
     }
 
-    public Funko updateFunko(Long id, Funko updatedFunko) {
-        Funko existingFunko = getFunkoById(id);
-        if (existingFunko != null) {
+    public Optional<Funko> updateFunko(Long id, Funko updatedFunko) {
+        Optional<Funko> existingFunko = getFunkoById(id);
+        if (existingFunko.isPresent()) {
             updatedFunko.setId(id);
-            updatedFunko.setFechaCreacion(existingFunko.getFechaCreacion());
-            updatedFunko.setFechaActualizacion(LocalDate.now());
-            int index = funkos.indexOf(existingFunko);
+            updatedFunko.setFechaCreacion(existingFunko.get().getFechaCreacion());
+            updatedFunko.setFechaActualizacion(LocalDateTime.now());
+            int index = funkos.indexOf(existingFunko.get());
             funkos.set(index, updatedFunko);
         }
         return existingFunko;
     }
 
-    public Funko deleteFunko(Long id) {
-        Funko existingFunko = getFunkoById(id);
-        if (existingFunko != null) {
-            funkos.remove(existingFunko);
-        }
+    public Optional<Funko> deleteFunko(Long id) {
+        Optional<Funko> existingFunko = getFunkoById(id);
+        existingFunko.ifPresent(funkos::remove);
         return existingFunko;
     }
 
-    public Funko partiallyUpdateFunko(Long id, Funko partialFunko) {
-        Funko existingFunko = getFunkoById(id);
+    public Optional<Funko> partiallyUpdateFunko(Long id, Funko partialFunko) {
+        Optional<Funko> existingFunko = getFunkoById(id);
 
-        if (existingFunko != null) {
+        if (existingFunko.isPresent()) {
             if (partialFunko.getNombre() != null) {
-                existingFunko.setNombre(partialFunko.getNombre());
+                existingFunko.get().setNombre(partialFunko.getNombre());
             }
             if (partialFunko.getPrecio() != 0.0) {
-                existingFunko.setPrecio(partialFunko.getPrecio());
+                existingFunko.get().setPrecio(partialFunko.getPrecio());
             }
             if (partialFunko.getCantidad() != 0) {
-                existingFunko.setCantidad(partialFunko.getCantidad());
+                existingFunko.get().setCantidad(partialFunko.getCantidad());
             }
             if (partialFunko.getImagen() != null) {
-                existingFunko.setImagen(partialFunko.getImagen());
+                existingFunko.get().setImagen(partialFunko.getImagen());
             }
             if (partialFunko.getCategoria() != null) {
-                existingFunko.setCategoria(partialFunko.getCategoria());
+                existingFunko.get().setCategoria(partialFunko.getCategoria());
             }
-            existingFunko.setFechaActualizacion(LocalDate.now());
+            existingFunko.get().setFechaActualizacion(LocalDateTime.now());
 
             return existingFunko;
         } else {
-            return null;
+            return Optional.empty();
         }
     }
 }

@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/funkos")
@@ -30,10 +31,10 @@ public class FunkosRestController {
     // Obtener un Funko por ID
     @GetMapping("/{id}")
     public ResponseEntity<Funko> getFunkoById(@PathVariable Long id) {
-        Funko funko = funkoRepository.getFunkoById(id);
+        Optional<Funko> funko = funkoRepository.getFunkoById(id);
 
-        if (funko != null) {
-            return new ResponseEntity<>(funko, HttpStatus.OK);
+        if (funko.isPresent()) {
+            return new ResponseEntity<>(funko.get(), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -42,18 +43,18 @@ public class FunkosRestController {
     // Crear un nuevo Funko
     @PostMapping
     public ResponseEntity<Funko> createFunko(@RequestBody Funko funko) {
-        Funko createdFunko = funkoRepository.createFunko(funko);
-        return new ResponseEntity<>(createdFunko, HttpStatus.CREATED);
+        Optional<Funko> createdFunko = funkoRepository.createFunko(funko);
+        return new ResponseEntity<>(createdFunko.get(), HttpStatus.CREATED);
     }
 
     // Actualizar un Funko por ID
     @PutMapping("/{id}")
     public ResponseEntity<Funko> updateFunko(@PathVariable Long id, @RequestBody Funko updatedFunko) {
-        Funko existingFunko = funkoRepository.getFunkoById(id);
+        Optional<Funko> existingFunko = funkoRepository.getFunkoById(id);
 
-        if (existingFunko != null) {
-            Funko updatedFunkoEntity = funkoRepository.updateFunko(id, updatedFunko);
-            return new ResponseEntity<>(updatedFunkoEntity, HttpStatus.OK);
+        if (existingFunko.isPresent()) {
+            Optional<Funko> updatedFunkoEntity = funkoRepository.updateFunko(id, updatedFunko);
+            return new ResponseEntity<>(updatedFunkoEntity.get(), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -62,11 +63,11 @@ public class FunkosRestController {
     // Actualizar parcialmente un Funko por ID
     @PatchMapping("/{id}")
     public ResponseEntity<Funko> partiallyUpdateFunko(@PathVariable Long id, @RequestBody Funko partialFunko) {
-        Funko existingFunko = funkoRepository.getFunkoById(id);
+        Optional<Funko> existingFunko = funkoRepository.getFunkoById(id);
 
-        if (existingFunko != null) {
-            Funko updatedFunko = funkoRepository.partiallyUpdateFunko(id, partialFunko);
-            return new ResponseEntity<>(updatedFunko, HttpStatus.OK);
+        if (existingFunko.isPresent()) {
+            Optional<Funko> updatedFunko = funkoRepository.partiallyUpdateFunko(id, partialFunko);
+            return new ResponseEntity<>(updatedFunko.get(), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -75,10 +76,10 @@ public class FunkosRestController {
     // Eliminar un Funko por ID
     @DeleteMapping("/{id}")
     public ResponseEntity<Funko> deleteFunko(@PathVariable Long id) {
-        Funko deletedFunko = funkoRepository.deleteFunko(id);
+        Optional<Funko> deletedFunko = funkoRepository.deleteFunko(id);
 
-        if (deletedFunko != null) {
-            return new ResponseEntity<>(deletedFunko, HttpStatus.OK);
+        if (deletedFunko.isPresent()) {
+            return new ResponseEntity<>(deletedFunko.get(), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
