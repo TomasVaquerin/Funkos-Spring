@@ -2,6 +2,7 @@ package com.example.funko.Controller;
 
 import com.example.funko.models.Funko;
 import com.example.funko.repository.FunkoRepository; // Importa el repositorio
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,7 +43,7 @@ public class FunkosRestController {
 
     // Crear un nuevo Funko
     @PostMapping
-    public ResponseEntity<Funko> createFunko(@RequestBody Funko funko) {
+    public ResponseEntity<Funko> createFunko(@Valid @RequestBody Funko funko) {
         Optional<Funko> createdFunko = funkoRepository.createFunko(funko);
         return new ResponseEntity<>(createdFunko.get(), HttpStatus.CREATED);
     }

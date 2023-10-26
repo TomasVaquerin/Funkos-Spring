@@ -1,6 +1,7 @@
 package com.example.funko.models;
 
 
+import jakarta.validation.constraints.Min;
 import lombok.Builder;
 import lombok.Data;
 import java.time.LocalDateTime;
@@ -10,8 +11,9 @@ import java.time.LocalDateTime;
 public class Funko {
     private Long id;
     private String nombre;
-    @Min()
+    @Min(value = 0, message = "El precio debe ser mayor a 0")
     private double precio;
+    @Min(value = 0, message = "El precio debe ser mayor a 0")
     private int cantidad;
     private String imagen;
     private String categoria;

@@ -1,7 +1,9 @@
 package com.example.funko.repository;
 
 import com.example.funko.models.Funko;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
