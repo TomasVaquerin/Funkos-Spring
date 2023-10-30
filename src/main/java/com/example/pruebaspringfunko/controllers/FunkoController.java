@@ -1,6 +1,7 @@
 package com.example.pruebaspringfunko.controllers;
 
 import com.example.pruebaspringfunko.mapper.FunkoMapper;
+import com.example.pruebaspringfunko.models.Categoria;
 import com.example.pruebaspringfunko.models.Funko;
 import com.example.pruebaspringfunko.models.FunkoDTOCreUpd;
 import com.example.pruebaspringfunko.services.FunkoServiceImpl;
@@ -21,7 +22,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/funkos")
 public class FunkoController {
-    private final FunkoServiceImpl funkoService;
+    private FunkoServiceImpl funkoService;
 
     @Autowired
     public FunkoController(FunkoServiceImpl funkoService) {
@@ -29,7 +30,7 @@ public class FunkoController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<Funko>> getAll(@RequestParam(required = false) Funko.Categoria categoria){
+    public ResponseEntity<List<Funko>> getAll(@RequestParam(required = false) Funko.FunkoBuilder().Categoria categoria){
         if (categoria != null) {
             return ResponseEntity.ok(funkoService.getFunkosPorCategoria(categoria));
         } else {

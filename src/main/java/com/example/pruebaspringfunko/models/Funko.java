@@ -1,14 +1,20 @@
 package com.example.pruebaspringfunko.models;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.*;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
+
 import java.time.LocalDateTime;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
 public class Funko {
     private static Long nextId = 1L;
+    @Id
     @Builder.Default
     private Long id = nextId++;
     @NotEmpty(message = "El nombre no puede estar vacio")
@@ -26,8 +32,4 @@ public class Funko {
     private LocalDateTime fechaCreated = LocalDateTime.now();
     @Builder.Default
     private LocalDateTime fechaUpdated = LocalDateTime.now();
-
-    public enum Categoria{
-        MARVEL, DISNEY, ANIME, OTROS
-    }
 }

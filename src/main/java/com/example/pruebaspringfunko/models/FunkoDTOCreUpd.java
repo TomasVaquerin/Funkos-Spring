@@ -18,5 +18,5 @@ public class FunkoDTOCreUpd {
     @Positive(message = "La cantidad no puede ser negativa")
     Integer cantidad;
     @NotNull(message = "La categoria no puede estar vacia")
-    Funko.Categoria categoria;
+    Funko categoria;
 }

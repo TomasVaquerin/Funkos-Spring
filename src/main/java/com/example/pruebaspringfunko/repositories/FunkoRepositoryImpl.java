@@ -1,16 +1,10 @@
 package com.example.pruebaspringfunko.repositories;
 
+import com.example.pruebaspringfunko.models.Categoria;
 import com.example.pruebaspringfunko.models.Funko;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Repository
 @Slf4j
@@ -54,54 +48,65 @@ public class FunkoRepositoryImpl implements FunkoRepository{
         );
     }
 
-    public List<Funko> getFunkosPorCategoria(Funko.Categoria categoria) {
+    public List<Funko> getFunkosPorCategoria(Funko.Categoria.tipoCategoria categoria) {
         return funkos.stream()
-                .filter(funko -> funko.getCategoria() == categoria)
+                .filter(funko -> funko.getCategoria().getTipoCategoria() == categoria)
                 .toList();
     }
 
     public List<Funko> loadLista() {
+
+        Categoria csuper = Categoria.builder()
+                .id(1L)
+                .tipoCategoria(Categoria.tipoCategoria.SUPERHEROES)
+                .build();
+
+        Categoria cdisney = Categoria.builder()
+                .id(1L)
+                .tipoCategoria(Categoria.tipoCategoria.DISNEY)
+                .build();
+
         funkos = new ArrayList<>();
         funkos.add(Funko.builder()
                 .nombre("Spiderman")
                 .precio(15.99)
                 .cantidad(5)
-                .categoria(Funko.Categoria.MARVEL)
+                .categoria(csuper)
                 .build());
 
         funkos.add(Funko.builder()
                 .nombre("Iron Man")
                 .precio(12.99)
                 .cantidad(10)
-                .categoria(Funko.Categoria.MARVEL)
+                .categoria(csuper)
                 .build());
 
         funkos.add(Funko.builder()
                 .nombre("Captain America")
                 .precio(14.99)
                 .cantidad(7)
-                .categoria(Funko.Categoria.MARVEL)
+                .categoria(csuper)
                 .build());
 
         funkos.add(Funko.builder()
                 .nombre("Mickey Mouse")
                 .precio(10.99)
                 .cantidad(15)
-                .categoria(Funko.Categoria.DISNEY)
+                .categoria(cdisney)
                 .build());
 
         funkos.add(Funko.builder()
                 .nombre("Minnie Mouse")
                 .precio(12.99)
                 .cantidad(8)
-                .categoria(Funko.Categoria.DISNEY)
+                .categoria(cdisney)
                 .build());
 
         funkos.add(Funko.builder()
                 .nombre("Donald Duck")
                 .precio(9.99)
                 .cantidad(20)
-                .categoria(Funko.Categoria.DISNEY)
+                .categoria(cdisney)
                 .build());
         return funkos;
     }
