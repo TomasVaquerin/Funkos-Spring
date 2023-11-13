@@ -17,7 +17,6 @@ public class FunkoDTOCreUpd {
     @Min(value = 1, message = "Minimo tiene que haber 1 producto")
     @Positive(message = "La cantidad no puede ser negativa")
     Integer cantidad;
-    @NotNull(message = "La categoria no puede estar vacia")
-    //@Pattern(regexp = "^(MARVEL|DISNEY|ANIME|OTROS)$", message = "Categoría no válida. Las opciones son: MARVEL, DISNEY, ANIME, OTROS")
-    Funko.Categoria categoria;
+    String categoria;
+    String imagen;
 }

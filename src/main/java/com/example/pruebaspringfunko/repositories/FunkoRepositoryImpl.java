@@ -22,7 +22,7 @@ public class FunkoRepositoryImpl implements FunkoRepository{
 
     public FunkoRepositoryImpl() {
         //funkos = insertarDatos();
-        funkos = loadLista();
+        //funkos = loadLista();
     }
 
     @Override
@@ -57,11 +57,11 @@ public class FunkoRepositoryImpl implements FunkoRepository{
         funkos.removeIf(funko -> funko.getId() == id);
     }
 
-    public List<Funko> getFunkosPorCategoria(Funko.Categoria categoria) {
+    /*public List<Funko> getFunkosPorCategoria(Funko.Categoria categoria) {
         return funkos.stream()
                 .filter(funko -> funko.getCategoria() == categoria)
                 .collect(Collectors.toList());
-    }
+    }*/
 
     /*public List<Funko> insertarDatos(){
         List<Funko> funkos = new ArrayList<>();
@@ -85,13 +85,13 @@ public class FunkoRepositoryImpl implements FunkoRepository{
 
         return funkos;
     }*/
-    public List<Funko> loadLista(){
+    /*public List<Funko> loadLista(){
         funkos = new ArrayList<>();
         funkos.add(new Funko("Spiderman", 15.99, 5, Funko.Categoria.MARVEL));
         funkos.add(new Funko("Daisy", 10.99, 15, Funko.Categoria.DISNEY));
         funkos.add(new Funko("Akaza", 20.99, 10, Funko.Categoria.ANIME));
         funkos.add(new Funko("Tomas Shelby", 30.99, 2, Funko.Categoria.OTROS));
         return funkos;
-    }
+    }*/
 
 }

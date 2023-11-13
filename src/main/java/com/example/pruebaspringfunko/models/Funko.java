@@ -1,39 +1,46 @@
 package com.example.pruebaspringfunko.models;
 
+import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.Random;
-import java.util.UUID;
-import java.util.concurrent.atomic.AtomicLong;
 
+@Entity
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Funko {
-    private static Long nextId = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotEmpty(message = "El nombre no puede estar vacio")
-    @Size(min = 2, max = 30, message = "El nombre tiene que tener entre 2 y 30 caracteres")
+    @Column
     private String nombre;
-    @NotNull(message = "El precio no puede estar vacio")
-    @DecimalMin(value = "0.0", message = "El precio debe ser mayor a cero")
-    @Positive(message = "El precio no puede ser negativo")
+    @Column
     private Double precio;
+    @Column
     private Integer cantidad;
+    @Column
     private String imagen;
+    @ManyToOne
+    @JoinColumn
     private Categoria categoria;
-    private LocalDateTime fecha_created;
-    private LocalDateTime fecha_updated;
+    @Column(columnDefinition = "TIMESTAMP")
+    private LocalDateTime fecha_created = LocalDateTime.now();
+    @Column(columnDefinition = "TIMESTAMP")
+    private LocalDateTime fecha_updated = LocalDateTime.now();
 
 
 
-    public enum Categoria{
+    /*public enum Categoria{
         MARVEL, DISNEY, ANIME, OTROS
-    }
+    }*/
 
-    public Funko(String nombre, Double precio, Integer cantidad, Categoria categoria) {
+    /*public Funko(String nombre, Double precio, Integer cantidad, Categoria categoria) {
         this.id = nextId++;
         this.nombre = nombre;
         this.precio = precio;
@@ -42,5 +49,5 @@ public class Funko {
         this.categoria = categoria;
         this.fecha_created = LocalDateTime.now();
         this.fecha_updated = LocalDateTime.now();
-    }
+    }*/
 }

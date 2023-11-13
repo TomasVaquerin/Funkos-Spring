@@ -25,9 +25,18 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
+    //TESTS
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+    //CACHE
     implementation("org.springframework.boot:spring-boot-starter-cache")
+    //VALIDACIONES
     implementation("org.springframework.boot:spring-boot-starter-validation")
+    //JPA
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    //XML_JSON
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml")
+    //H2
+    runtimeOnly("com.h2database:h2")
 }
 
 tasks.withType<Test> {
