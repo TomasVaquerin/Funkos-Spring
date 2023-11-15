@@ -3,9 +3,11 @@ package com.example.pruebaspringfunko.mapper;
 import com.example.pruebaspringfunko.models.Categoria;
 import com.example.pruebaspringfunko.models.Funko;
 import com.example.pruebaspringfunko.models.FunkoDTOCreUpd;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
+@Component
 public class FunkoMapper {
     public static Funko convertirDTOaFunko(FunkoDTOCreUpd dto, Categoria categoria) {
         Funko funko = Funko.builder()

@@ -1,5 +1,6 @@
 package com.example.pruebaspringfunko.models;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Schema(name = "Funko")
 public class Funko {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

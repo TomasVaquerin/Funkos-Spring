@@ -37,6 +37,10 @@ dependencies {
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml")
     //H2
     runtimeOnly("com.h2database:h2")
+    //WEBSOCKET
+    implementation("org.springframework.boot:spring-boot-starter-websocket")
+    //SWAGGER
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0")
 }
 
 tasks.withType<Test> {
